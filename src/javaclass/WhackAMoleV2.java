@@ -1,3 +1,5 @@
+package javaclass;
+
 // solution by: Joseph Burfield
 
 import java.awt.Color;
@@ -13,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import java.util.Random;
 
 class StudentWorkSolution extends JComponent
@@ -53,25 +54,27 @@ class StudentWorkSolution extends JComponent
 	{
         // 1. Make random selection.
         int z = rand.nextInt(3);
-        System.out.println(z);
+        char c = (char)(rand.nextInt(26) + 'A');
+        System.out.println(z+c);
+        
         switch(z){
                     case 0: g.fillRect(116, 200, 50, 50);
-                    charDisplayed = '1';
+                    charDisplayed = c;
                     g.setColor(Color.RED);
-                    g.drawString("1", 136, 220);
+                    g.drawString(""+c, 136, 220);
                     g.setColor(Color.BLUE);
                     break;
                     case 1: g.fillRect(166, 200, 50, 50);
                     g.setColor(Color.RED);
-                    g.drawString("2", 186, 220);
+                    g.drawString(""+c, 186, 220);
                     g.setColor(Color.BLUE);
-                    charDisplayed = '2';
+                    charDisplayed = c;
                     break;
                     case 2: g.fillRect(216, 200, 50, 50);
                     g.setColor(Color.RED);
-                    g.drawString("3", 236, 220);
+                    g.drawString(""+c, 236, 220);
                     g.setColor(Color.BLUE);
-                    charDisplayed = '3';
+                    charDisplayed = c;
                     break;
                     default:
                         System.out.println("No one likes you. "+z );
@@ -84,6 +87,7 @@ class StudentWorkSolution extends JComponent
     /*** No need to change this. ***/
 	public boolean checkIfWhacked(KeyEvent e)
 	{
+                //System.out.println()
 		return charDisplayed == Character.toUpperCase(e.getKeyChar());
 	}
 

@@ -1,5 +1,4 @@
 // solution by: Joseph Burfield
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
