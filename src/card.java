@@ -5,8 +5,8 @@
  */
 import java.util.*;
 /**
- *
- * @author Chris
+ * 6/15/2016 // 3:46 (Revision 4)
+ * @author Chris Fischer // SI @ UCF for HS.
  */
 public class card{
     private char suit; //CDHS
@@ -73,12 +73,9 @@ public class card{
     return rv;
             }
     public boolean equals(card other){
-    boolean isEqual = true;
-        if(this.kind != other.kind){
-        isEqual = false;}
-        if(this.suit != other.suit){
-        isEqual = false;
-        }
+    boolean isEqual = false;
+        if(this.kind == other.kind && this.suit == other.suit){
+        isEqual = true;}
     return isEqual;
     }
     public boolean beats(card other){
@@ -101,8 +98,6 @@ public class card{
             }
         return beats;
         }           
-
-    
     public static void main(String[] args){
     card Caden1 = new card(new Random());
     card Caden2 = new card(new Random());
