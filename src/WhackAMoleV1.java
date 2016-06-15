@@ -52,7 +52,6 @@ class StudentWorkSolution extends JComponent
 	{
         // 1. Make random selection.
         int z = rand.nextInt(3);
-        System.out.println(z);
         switch(z){
                     case 0: g.fillRect(116, 200, 50, 50);
                     charDisplayed = '1';
@@ -73,7 +72,7 @@ class StudentWorkSolution extends JComponent
                     charDisplayed = '3';
                     break;
                     default:
-                        System.out.println("No one likes you. "+z );
+                       break;
                                     
         }
         // 2. Determine x coordinate to highlight and fill appropriate rectangle with desired color
