@@ -32,7 +32,7 @@ public class Payments {
             month = month + 1;
             bal = (((bal*(ival / 100))+bal));
             //mpay = bal
-            System.out.println(month+"  "+bal+"    ");
+            System.out.println(month+"  "+bal+"    "+"0");
             bal = 0;
         }
        }
