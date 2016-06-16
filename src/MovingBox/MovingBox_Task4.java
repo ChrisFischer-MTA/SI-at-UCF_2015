@@ -1,6 +1,7 @@
 package MovingBox;
 
 
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -158,7 +159,7 @@ class StudentWorkSolution {
  *
  **************************************************
  */
-public class MovingBox {
+public class MovingBox_Task4 {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Homework Problem 1");

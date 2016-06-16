@@ -1,18 +1,15 @@
 package MovingBox;
 
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 class StudentWorkSolution {
 
-    int frame = 0;
     int positionX, positionY, velocityX, velocityY, accerationX, accerationY;
     int sizeX, sizeY;
     Color characterColor, backgroundColor;
@@ -32,23 +29,22 @@ class StudentWorkSolution {
      * ******************************
      */
     public void moveLeft() {
-
-        positionX -= 100;
-        
+        positionX -= 2;
 
     }
 
     public void moveRight() {
-        positionX += 50;
+        positionX += 2;
 
     }
 
     public void moveUp() {
-        positionY -= 100;
+        positionY -= 2;
     }
 
     public void moveDown() {
-        positionY += 50;
+        positionY += 2;
+
     }
 
     /**
@@ -63,26 +59,17 @@ class StudentWorkSolution {
      * 3 - Left *****************************
      */
     public void update(boolean[] keyPressed) {
-        frame+=1;
-        if(frame >= 60){
-        frame = 0;
         if (keyPressed[0]) {
             moveUp();
-
         }
         if (keyPressed[1]) {
             moveRight();
-
         }
         if (keyPressed[2]) {
             moveDown();
-            System.out.println();
-
         }
         if (keyPressed[3]) {
-
             moveLeft();
-
         }
 
         positionX = positionX + velocityX;
@@ -92,26 +79,16 @@ class StudentWorkSolution {
 
         if (positionX < 100) {
             positionX = 595;
-            //      accerationX = 0;
-            //      velocityX = 0;
         }
         if (positionX > 600) {
             positionX = 105;
-            //    accerationX = 0;
-            //   velocityX = 0;
         }
         if (positionY > 600) {
             positionY = 105;
-            //   accerationY = 0;
-            //   velocityY = 0;
         }
         if (positionY < 100) {
             positionY = 595;
-            // velocityY = 0;
-            //accerationY = 0;
-
         }
-    }
     }
 
     /**
@@ -131,10 +108,6 @@ class StudentWorkSolution {
      * Do not edit this method **************************************
      */
     public StudentWorkSolution() {
-        Random rand = new Random();
-        float r = rand.nextFloat();
-        float g = rand.nextFloat();
-        float b = rand.nextFloat();
         positionX = 350;
         positionY = 350;
         velocityX = 0;
@@ -144,7 +117,7 @@ class StudentWorkSolution {
         sizeX = 50;
         sizeY = 50;
         characterColor = Color.black;
-        backgroundColor = Color.getHSBColor(r, g, b);
+        backgroundColor = Color.white;
     }
 
 }
@@ -158,7 +131,7 @@ class StudentWorkSolution {
  *
  **************************************************
  */
-public class MovingBox {
+public class MovingBox_Task2 {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Homework Problem 1");

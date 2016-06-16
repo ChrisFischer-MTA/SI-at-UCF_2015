@@ -1,6 +1,7 @@
 package MovingBox;
 
 
+import .*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -12,7 +13,6 @@ import javax.swing.JFrame;
 
 class StudentWorkSolution {
 
-    int frame = 0;
     int positionX, positionY, velocityX, velocityY, accerationX, accerationY;
     int sizeX, sizeY;
     Color characterColor, backgroundColor;
@@ -33,22 +33,21 @@ class StudentWorkSolution {
      */
     public void moveLeft() {
 
-        positionX -= 100;
-        
+        positionX -= 5;
 
     }
 
     public void moveRight() {
-        positionX += 50;
+        positionX += 5;
 
     }
 
     public void moveUp() {
-        positionY -= 100;
+        positionY -= 5;
     }
 
     public void moveDown() {
-        positionY += 50;
+        positionY += 5;
     }
 
     /**
@@ -63,9 +62,6 @@ class StudentWorkSolution {
      * 3 - Left *****************************
      */
     public void update(boolean[] keyPressed) {
-        frame+=1;
-        if(frame >= 60){
-        frame = 0;
         if (keyPressed[0]) {
             moveUp();
 
@@ -112,7 +108,6 @@ class StudentWorkSolution {
 
         }
     }
-    }
 
     /**
      * ***************************************
@@ -158,7 +153,7 @@ class StudentWorkSolution {
  *
  **************************************************
  */
-public class MovingBox {
+public class MovingBox_Task5 {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Homework Problem 1");
