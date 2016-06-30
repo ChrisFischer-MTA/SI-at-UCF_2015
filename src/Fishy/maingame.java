@@ -1,7 +1,7 @@
+// Christopher Fischer
+// Done for project of SCI @ UCF
+// Version is a troll version, intentionally meant to mess with people.
 package Fishy;
-
-// Framework for SI@UCF Program: Pong
-// Fill in your header comment here.
 import static Fishy.maingame.student;
 import java.awt.Color;
 import java.awt.Font;
