@@ -2,6 +2,18 @@ package Fishy;
 
 // Framework for SI@UCF Program: Pong
 // Fill in your header comment here.
+// Credits:
+/*
+Christopher R. Fischer += Logic Designer
+Aiden B. Hughes += Graphics Design
+
+Music Used:
+"Fresh Air" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+http://creativecommons.org/licenses/by/3.0/
+
+
+ */
 import static Fishy.maingame.student;
 import java.awt.Color;
 import java.awt.Font;
@@ -18,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.FloatControl;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,23 +46,31 @@ class StudentWorkSolution extends JComponent {
     public int eyePosX = 3, eyePosY = 1;
     public fish[] fishyList = new fish[100];
     public fish playerFish = new fish(true);
+    public boolean gameover;
+    public boolean init1;
+    Sound sound = new Sound();
 
     public StudentWorkSolution() {
         int dialogButton = JOptionPane.DEFAULT_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null, "Fishy is a game where you avoid bigger fishes and eat smaller fishes by bumping into them.\n Use arrow keys to move, and press OK once you're ready.", "Good luck!", dialogButton);
-        Sound sound = new Sound();
-        sound.music();
         for (int i = 0; i < fishyList.length; i++) {
-            fishyList[i] = new fish();
+            fishyList[i] = new fish(0);
             fishyList[i].getSpeed();
             for (int j = 0; j < 500; j++) {
                 fishyList[i].delete();
             }
         }
-    }
+        /*        Sound sound = new Sound();
+        sound.music("playing");
+         */    }
 
     public void update(boolean[] keyMap) {
-
+        if (!gameover && !init1) {
+            sound.music("playing");
+            //sound.music("music");
+            init1 = true;
+            System.out.println("Sound starting");
+        }
         //Quick Reference Sheet:
         // up key      keyMap[0] = true;
         // down key keyMap[1] = true;
@@ -61,10 +82,10 @@ class StudentWorkSolution extends JComponent {
             i = 0;
         }
 
-        if (frame >= 20) {
+        if (frame >= 17) {
             i++;
-          // System.out.println("Executing.");
-            fishyList[i] = new fish();
+            // System.out.println("Executing.");
+            fishyList[i] = new fish(playerFish.score);
             fishyList[i].getSpeed();
             frame = 0;
         }
@@ -72,42 +93,51 @@ class StudentWorkSolution extends JComponent {
         frame++;
         for (int i = 0; i < fishyList.length; i++) {
             fishyList[i].upX();
-        }
+        }        
+                      
         if (keyMap[2] == true) {
-            eyePosX = playerFish.sizeX - playerFish.sizeX / 3;
+            eyePosX = playerFish.sizeX - playerFish.sizeX / 3 -playerFish.sizeX / 10;
         }
         if (keyMap[3] == true) {
-            eyePosX = 2;
+            eyePosX = 5;
         }
         playerFish.update(keyMap);
         for (int i = 0; i < fishyList.length; i++) {
             // START COLLISON DETECT -- ALL CODE FOUND BELOW THIS STATEMENT IS AIDENS FAULT;
-            if (playerFish.getX() + playerFish.sizeX > fishyList[i].getX() && playerFish.getX() < fishyList[i].getX() + fishyList[i].getSizeX() && playerFish.getY() + playerFish.sizeY > fishyList[i].getY() && playerFish.getY() < fishyList[i].getY() + fishyList[i].getSizeY()) {
-                if (playerFish.sizeX >= 460) {
+            if (playerFish.getX() + playerFish.sizeX > fishyList[i].getX() + fishyList[i].getSizeX() / 4 && playerFish.getX() < fishyList[i].getX() + fishyList[i].getSizeX() - fishyList[i].getSizeX() / 4 && playerFish.getY() + playerFish.sizeY > fishyList[i].getY() && playerFish.getY() < fishyList[i].getY() + fishyList[i].getSizeY()) {
+                if (playerFish.sizeX >= 690) {
                     int dialogButton = JOptionPane.DEFAULT_OPTION;
-                    int dialogResult = JOptionPane.showConfirmDialog(null, "You have won, with a final score of: " + (((playerFish.sizeX * 10) - 400)) + "", "Gratz hommie g now go outsidez and fuck a bitch.", dialogButton);
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "You win?", "But at what cost?", dialogButton);
                     System.exit(1);
 
                 }
 
                 if (fishyList[i].getSizeY() <= playerFish.sizeY) {
-            //        System.out.println("Frack");
+                    //        System.out.println("Frack");
 
                     fishyList[i].sizeX = 0;
                     playerFish.sizeX += (fishyList[i].getSizeX() / 10);
                     playerFish.sizeY += (fishyList[i].getSizeY() / 10);
                     for (int j = 0; j < 5000; j++) {
                         fishyList[i].upX();
+
                     }
                 } else if (fishyList[i].getSizeY() > playerFish.sizeY) {
                     System.out.println(playerFish.getSizeY() + " " + fishyList[i].getSizeY());
                     System.out.println(playerFish.sizeX + playerFish.sizeY - 50);
+
                     for (int y = 0; y <= 50; y++) {
                         playerFish.upX();
-                    //    System.out.println("Coverup!");
+
+                        //    System.out.println("Coverup!");
                     }
+                    gameover = true;
+                    sound.stopMusic();
+                    Sound music = new Sound();
+                    System.out.println("o&o" + "");
+                    music.music("one and only");
                     int dialogButton = JOptionPane.DEFAULT_OPTION;
-                    int dialogResult = JOptionPane.showConfirmDialog(null, "You have died, with a final score of: " + (((playerFish.sizeX * 10) - 400)) + "", "RIP", dialogButton);
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "You have died, with a final score of: " + (((playerFish.sizeX * 10) - 400)) + "", "And So It Ends...", dialogButton);
                     System.exit(1);
 
                 }
@@ -118,7 +148,7 @@ class StudentWorkSolution extends JComponent {
     }
 
     public void draw(Graphics g) {
-      //  System.out.println("Hello.");
+        //  System.out.println("Hello.");
         try {
             g.drawImage(ImageIO.read(new File("bround.jpg")), 0, 0, this);
         } catch (IOException ex) {
@@ -156,20 +186,19 @@ class StudentWorkSolution extends JComponent {
             }
         }
 
-        g.setColor(Color.MAGENTA);
+        g.setColor(playerFish.getColor());
         g.fillOval(playerFish.getX(), playerFish.getY(), playerFish.sizeX, playerFish.sizeY);
         g.setColor(Color.BLACK);
         g.fillOval(playerFish.getX() + eyePosX, playerFish.getY() + eyePosY, playerFish.sizeX / 3, playerFish.sizeX / 3);
+        
+        playerFish.colorUP(score / 10);
 
-    }
-
-    public boolean collides(char type) {
-        return false;
     }
 
     public void paintComponent(Graphics g) {
         this.draw(g);
     }
+
 }
 
 public class maingame {
@@ -264,12 +293,12 @@ public class maingame {
 
 class fish {
 
-    final static public int[] speeds = {3, 3, 3, 4, 4, 4, 4, 8, 9, 10};
+    final static public int[] speeds = {3, 4, 5, 5, 5, 5, 5, 8, 9, 10};
     //final static public int[] speeds = {10, 10, 10, 10, 10, 1999999991, 1999999991, 1999999991, 1999999991, 1999999991};
     private int posX, posY, size, speed, eyePosX, eyePosY;
     private double volX, volY;
     private boolean player;
-    private Color color;
+    private Color color = Color.RED;
     public int frame;
     int sizeX;
     int sizeY;
@@ -277,8 +306,7 @@ class fish {
     Random rand = new Random();
     private boolean eye;
 
- 
-    public fish() {
+    public fish(int score) {
 
         this.volX = speeds[rand.nextInt(speeds.length)];
         switch (rand.nextInt(2) + 1) {
@@ -292,17 +320,32 @@ class fish {
                 this.eye = true;
                 break;
         }
-        size = rand.nextInt(450) + 10;
+        //size = rand.nextInt(450) + 15;
+        if (score < 100) {
+            size = rand.nextInt(score + 400) - 30;
+        } else {
+            size = rand.nextInt(490) + 20;
+        }
+
         posY = rand.nextInt(750);
 
-        switch (rand.nextInt(4)) {
+        switch (rand.nextInt(7)) {
             case 1:
-                this.color = Color.RED;
+                this.color = Color.magenta;
                 break;
             case 2:
-                this.color = Color.green;
+                this.color = new Color(65, 240, 29); // Green
                 break;
             case 3:
+                this.color = new Color(29, 240, 107); // Light Green
+                break;
+            case 4:
+                this.color = new Color(145, 220, 250); // Light Blue
+                break;
+            case 5:
+                this.color = new Color(145, 250, 212); // Greenish
+                break;
+            case 6:
                 this.color = Color.blue;
                 break;
             default:
@@ -312,7 +355,9 @@ class fish {
     }
 
     public fish(boolean player) {
+        super();
         // Constructor for player fish! :)
+        color = Color.white;
         posX = 375;
         posY = 375;
         volX = 0;
@@ -404,11 +449,14 @@ class fish {
         if (this.posX > 750 + sizeX) {
             posX = -sizeX;
         }
-        if (this.posY > 750 + sizeY) {
-            posY = -sizeY;
+        if (this.posY > 700) {
+            this.volY = 0;
+            posY = 700;
+
         }
-        if (this.posY < -sizeY) {
-            posY = 750 + sizeY;
+        if (this.posY < 0) {
+            volY = 0;
+            posY = 0;
         }
         frame++;
     }
@@ -420,22 +468,32 @@ class fish {
     public void sizeUp(int ret) {
 
     }
+
+    public void colorUP(int offset) {
+        offset -= 40;
+        if(offset>=250)
+            offset=250;
+        this.color = new Color(255, 255 - offset, 255 - offset);
+    }
 }
 
 class Sound {
 
-    public void music() {
+    private AudioStream BGM;
+    private InputStream test;
+
+    public void music(String filename) {
 
         AudioStream backgroundMusic;
         AudioData musicData;
         AudioPlayer musicPlayer = AudioPlayer.player;
         ContinuousAudioDataStream loop = null;
         AudioPlayer MGP = AudioPlayer.player;
-        AudioStream BGM;
+
         AudioData MD;
 
         try {
-            InputStream test = new FileInputStream("music.wav");
+            test = new FileInputStream(filename + ".wav");
             BGM = new AudioStream(test);
             AudioPlayer.player.start(BGM);
             //MD = BGM.getData();
@@ -449,5 +507,8 @@ class Sound {
         MGP.start(loop);
 
     }
-}
 
+    public void stopMusic() {
+        AudioPlayer.player.stop(BGM);
+    }
+}
